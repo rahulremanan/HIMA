@@ -1,2 +1,4 @@
 sudo apt-get install p7zip-full
 7z x file_name.7z -p "p4$$w0rd"
+sudo pip3 install pydicom
+sudo pip3 install pandas
