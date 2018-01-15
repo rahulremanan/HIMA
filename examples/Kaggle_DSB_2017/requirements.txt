@@ -2,5 +2,5 @@ numpy
 PyDicom
 matplotlib
 scipy
-skimage
 sklearn
+scikit-image
