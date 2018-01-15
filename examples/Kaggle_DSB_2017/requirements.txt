@@ -1,0 +1,6 @@
+numpy
+PyDicom
+matplotlib
+scipy
+skimage
+sklearn
