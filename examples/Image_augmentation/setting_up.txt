@@ -1,0 +1,29 @@
+mkdir cats_dogs
+unzip ./train.zip -d ./cats_dogs/
+unzip ./test.zip -d ./cats_dogs/
+
+mkdir ./preview
+mkdir ./cats_dogs/train/cats
+mkdir ./cats_dogs/train/dogs
+
+cd cats_dogs/train/
+mv cat.* ./cats/
+mv dog.* ./dogs/
+
+cd ..
+mkdir validation
+cd ./validation
+mkdir cats
+mkdir dogs
+
+cd ..
+cd train/cats
+ls -1 | wc -l
+shuf -n 2500 -e ./*.jpg | xargs -i mv {} ../../validation/cats/
+ls -1 | wc -l
+
+cd ..
+cd dogs
+ls -1 | wc -l
+shuf -n 2500 -e ./*.jpg | xargs -i mv {} ../../validation/dogs/
+ls -1 | wc -l
