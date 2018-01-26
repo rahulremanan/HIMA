@@ -1,12 +1,12 @@
 sudo python3 HIMA.py --weights_file ../../../model/trained_weights_42o.model --config_file ./model/model_efc.json --labels_file ./model/trained_labels.json --output_directory ./output/
 
-curl -F 'file=@/home/remanan_rahul/notebooks/HIMA/examples/ICIAR_2018/test/00.jpg' http://35.226.22.117
+curl -F 'file=@/home/remanan_rahul/notebooks/HIMA/examples/ICIAR_2018/test/00.jpg' http://server_id
 
-curl -F 'file=@/home/remanan_rahul/notebooks/HIMA/examples/ICIAR_2018/test/09.jpg' http://35.226.22.117
+curl -F 'file=@/home/remanan_rahul/notebooks/HIMA/examples/ICIAR_2018/test/09.jpg' http://server_id
 
-curl -F 'file=@/home/remanan_rahul/notebooks/HIMA/examples/ICIAR_2018/test/10.jpg' http://35.226.22.117
+curl -F 'file=@/home/remanan_rahul/notebooks/HIMA/examples/ICIAR_2018/test/10.jpg' http://server_id
 
-curl -F 'file=@/home/remanan_rahul/notebooks/HIMA/examples/ICIAR_2018/test/18.jpg' http://35.226.22.117
+curl -F 'file=@/home/remanan_rahul/notebooks/HIMA/examples/ICIAR_2018/test/18.jpg' http://server_id
 
-http://35.225.109.156/goo.gl/kjRAUf
-http://35.225.109.156/goo.gl/RyMjBD
+http://server_id/goo.gl/kjRAUf
+http://server_id/goo.gl/RyMjBD
