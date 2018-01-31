@@ -10,3 +10,7 @@ curl -F 'file=@/home/remanan_rahul/notebooks/HIMA/examples/ICIAR_2018/test/18.jp
 
 http://server_id/goo.gl/kjRAUf
 http://server_id/goo.gl/RyMjBD
+http://server_id/goo.gl/rgRqXT
+http://server_id/goo.gl/Hhnzkt
+http://server_id/goo.gl/S4fLDt
+http://server_id/goo.gl/9fo1FU
