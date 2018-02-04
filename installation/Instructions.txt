@@ -1,0 +1,7 @@
+sudo chmod +x redis.sh
+./redis.sh
+
+sudo pip3 install celery
+sudo pip3 install redis
+
+celery worker -A app.celery --loglevel=info
