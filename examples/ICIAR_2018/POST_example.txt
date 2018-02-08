@@ -1,5 +1,7 @@
 sudo python3 app.py --weights_file ../model/trained_weights_RX.model --config_file ../model/expanded_model.json --labels_file ../model/trained_labels.json --output_directory ./output/
 
+sudo celery worker -A app.celery --loglevel=info
+
 curl -F 'file=@/home/remanan_rahul/notebooks/HIMA/examples/ICIAR_2018/test/00.jpg' http://server_id
 
 curl -F 'file=@/home/remanan_rahul/notebooks/HIMA/examples/ICIAR_2018/test/09.jpg' http://server_id
