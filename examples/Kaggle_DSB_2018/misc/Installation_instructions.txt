@@ -1,2 +1,2 @@
 sudo apt-get install graphviz
-sudo pip3 install pydot pydot-ng tqdm matplotlib scikit-image pandas graphviz
+sudo pip3 install pydot pydot-ng tqdm matplotlib scikit-image pandas h5py graphviz
