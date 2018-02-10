@@ -1,6 +1,14 @@
-sudo python3 app.py --weights_file ../model/trained_weights_RX.model --config_file ../model/expanded_model.json --labels_file ../model/trained_labels.json --output_directory ./output/
+# Deploy Server:
+
+sudo python3 app.py --weights_file ../model/trained_weights_RX.model --config_file ../model/expanded_model.json --labels_file ../model/trained_labels.json --output_directory ./output/ --generate_config True
+
+# Launch Celery:
 
 sudo celery worker -A app.celery --loglevel=info
+
+# Simple Client-Server Query Management:
+
+-- Using Curl --
 
 curl -F 'file=@/home/remanan_rahul/notebooks/HIMA/examples/ICIAR_2018/test/00.jpg' http://server_id
 
@@ -10,9 +18,36 @@ curl -F 'file=@/home/remanan_rahul/notebooks/HIMA/examples/ICIAR_2018/test/10.jp
 
 curl -F 'file=@/home/remanan_rahul/notebooks/HIMA/examples/ICIAR_2018/test/18.jpg' http://server_id
 
+-- Using Google URL Shortening API --
+
 http://server_id/goo.gl/kjRAUf
 http://server_id/goo.gl/RyMjBD
 http://server_id/goo.gl/rgRqXT
 http://server_id/goo.gl/Hhnzkt
 http://server_id/goo.gl/S4fLDt
 http://server_id/goo.gl/9fo1FU
+
+# Asynchrnous Query Management:
+
+-- Using Curl --
+
+(echo -n '{"data": "'; base64 ./00.jpg; echo '"}') |
+curl -X POST -H "Content-Type: application/json" -d @- http://server_id/async/
+
+(echo -n '{"data": "'; base64 ./09.jpg; echo '"}') |
+curl -X POST -H "Content-Type: application/json" -d @- http://server_id/async/
+
+(echo -n '{"data": "'; base64 ./10.jpg; echo '"}') |
+curl -X POST -H "Content-Type: application/json" -d @- http://server_id/async/
+
+(echo -n '{"data": "'; base64 ./18.jpg; echo '"}') |
+curl -X POST -H "Content-Type: application/json" -d @- http://server_id/async/
+
+-- Using Google URL Shortening API --
+
+http://server_id/async/goo.gl/kjRAUf
+http://server_id/async/goo.gl/RyMjBD
+http://server_id/async/goo.gl/rgRqXT
+http://server_id/async/goo.gl/Hhnzkt
+http://server_id/async/goo.gl/S4fLDt
+http://server_id/async/goo.gl/9fo1FU

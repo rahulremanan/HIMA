@@ -1,6 +1,11 @@
-sudo chmod +x redis.sh
-./redis.sh
+#Execute inside the redis folder:
+sudo chmod +x ./redis.sh
+sudo ./redis.sh
+
+# To remove unfinished tasks:
+redis-cli flushdb
 
 sudo pip3 install celery redis
 
+# Execute inside Celery app folder:
 celery worker -A app.celery --loglevel=info
