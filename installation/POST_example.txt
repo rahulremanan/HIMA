@@ -6,6 +6,10 @@ sudo python3 app.py --weights_file ../model/trained_weights_RX.model --config_fi
 
 sudo celery worker -A app.celery --loglevel=info
 
+-- To reslove task received, not executing issue:
+
+sudo celery worker -A app.celery -P solo --loglevel=info
+
 # Simple Client-Server Query Management:
 
 -- Using Curl --
