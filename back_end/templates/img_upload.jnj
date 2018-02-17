@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Jomiraki HIMA</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <div class="navbar-brand">Healthcare Image Analysis (HIMA)</div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+     <form action="" method=post enctype=multipart/form-data>
+          <div class="form-group">
+            <label for="image">Image</label>
+            <input type="file" name="file" id="file" class="form-control"/>
+          </div>
+      <button type="submit" class="btn btn-success">Run Predictions</button>
+    </form>
+   </div>
+  </body>
+</html>

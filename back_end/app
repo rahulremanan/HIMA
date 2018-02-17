@@ -1,0 +1,7 @@
+#!/bin/bash
+cd /home/rahul/Jomiraki/
+sudo python3 app.py --weights_file /home/rahul/Jomiraki/model/trained_weights_RX1.model \
+--config_file /home/rahul/Jomiraki/model/trained_config_RX1.json \
+--labels_file /home/rahul/Jomiraki/model/labels.json \
+--output_directory /home/rahul/Jomiraki/output/ \
+--generate_config True

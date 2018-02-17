@@ -1,0 +1,6 @@
+[{   
+  "weights_file": ["../model/trained_weights_RX.model"],   
+  "config_file": ["../model/expanded_model.json"],   
+  "labels_file": ["../model/trained_labels.json"],
+  "output_directory": ["./output/"]
+}]

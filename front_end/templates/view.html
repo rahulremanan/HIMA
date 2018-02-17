@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Image</h3>
+
+<div class="media">
+  <div class="media-left">
+    {% if image_url %}
+      <img src="{{image_url}}" style="max-width:50%; height:auto">
+    {% else %}
+      <img src="goo.gl/rgRqXT">
+    {% endif %}
+  </div>
+  <div>
+    {% if predictions %}
+      <ul class="list-unstyled">
+      <li> Predictions =       
+      <p id="Predictions"></p>
+          <script>
+              var obj = predictions;
+              document.getElementById("Predictions").innerHTML = obj.Location;
+          </script>
+      </li>
+      {% for prediction in obj %}
+        <li> Predictions: {{prediction.Location}} <b>{{prediction.Location}}</b></li>
+      {% endfor %}
+      </ul>
+    {% else %}
+      <div>Unknown</div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
