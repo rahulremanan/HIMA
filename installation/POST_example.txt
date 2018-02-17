@@ -1,6 +1,6 @@
 # Deploy Server:
 
-sudo python3 app.py --weights_file ../model/trained_weights_RX.model --config_file ../model/expanded_model.json --labels_file ../model/trained_labels.json --output_directory ./output/ --generate_config True
+sudo python3 /home/rahul/Jomiraki/app.py --weights_file ../model/trained_weights_RX1.model --config_file ../model/expanded_model.json --labels_file ../model/trained_labels.json --output_directory ./output/ --generate_config True
 
 # Launch Celery:
 

@@ -1,0 +1,31 @@
+# Create a temporary folder to perform image transformations:
+
+mkdir tmp
+
+cd tmp
+
+for d in ../data/train_aug/*; do sudo cp -r "$d" ./; done
+
+# Rotate files by 90deg:
+
+for f in * ; do sudo mv "$f" "90_$f" ; done
+
+find . -name '*.png' -execdir mogrify -rotate "-90" {} \;
+
+sudo mv ./* ../data/train_aug/
+
+# Rotate files by 180deg:
+
+for f in * ; do sudo mv "$f" "180_$f" ; done
+
+sudo find . -name '*.png' -execdir mogrify -rotate "-180" {} \;
+
+sudo mv ./* ./data/train_aug/
+
+# Mirror flip:
+
+for f in * ; do sudo mv "$f" "flip_$f" ; done
+
+sudo find . -name '*.png' -execdir mogrify -flip {} \;
+
+for d in ./*; do sudo cp -r "$d" ../data/train_aug/ ; done

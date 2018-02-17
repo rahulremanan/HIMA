@@ -1,0 +1,3 @@
+#!/bin/bash
+cd /home/rahul/Jomiraki/
+celery worker -A app.celery -P solo --loglevel=info
