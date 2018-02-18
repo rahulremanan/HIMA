@@ -14,6 +14,7 @@ from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 import random
 import string
+import gc
 
 app = Flask(__name__)
 
@@ -48,6 +49,8 @@ def fetch_predictions_filename(filename=None):
     file = (os.path.join(app.config['UPLOAD_FOLDER'], filename))
     files = {'file': open(file, 'rb')}
     r = requests.post(server_url, files=files)
+    del files
+    gc.collect()
     print(r.text)
     return r
 
@@ -57,16 +60,25 @@ def main():
         img = request.files.get('file')
         N = 64
         filename = (''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(N)) + '.png')
-        print ('Received file: ... ' + secure_filename(img.filename))
-        print (filename)
-        img_stream = img.read()
-        img_data= Image.open(BytesIO(img_stream))
-        img_data.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        predictions = fetch_predictions_filename(filename=filename)
-        return render_template('view.html', \
+        if img and allowed_file(img.filename):
+            print ('Received file: ... ' + secure_filename(img.filename))
+            print (filename)
+            img_stream = img.read()
+            img_data= Image.open(BytesIO(img_stream))
+            img_data.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            predictions = fetch_predictions_filename(filename=filename)
+            print (predictions.json()["Location"])
+            del img_data
+            del img_stream
+            del img
+            gc.collect()
+            return render_template('view.html', \
                                image_url=app.config['APP_URL']+ '/uploads/' \
                                + filename,\
-                               predictions=predictions)
+                               predictions=predictions.json()["Location"])
+        else:
+            flash ("No image file selected ...")
+            return render_template('form.html')
     else:
         flash("Image file not supported ...")
         return render_template('form.html')

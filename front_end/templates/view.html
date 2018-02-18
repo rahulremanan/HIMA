@@ -15,16 +15,35 @@
   <div>
     {% if predictions %}
       <ul class="list-unstyled">
-      <li> Predictions =       
-      <p id="Predictions"></p>
-          <script>
-              var obj = predictions;
-              document.getElementById("Predictions").innerHTML = obj.Location;
-          </script>
+      <li> <b> Prediction:  </b>
+          <p id="Predictions">
+          <body>
+          <div id="results">
+          <object type="text/html" 
+                  name="results_object"
+                  id = "results_object"
+                  marginwidth="0" 
+                  marginheight="40" 
+                  width="240" 
+                  height="120" 
+                  scrolling="no" 
+                  frameborder=0 
+                  data = "{{predictions}}" >
+          </object>
+          </div>
+              <script>
+                  function reload_results(){
+                      var container = document.getElementById("results");
+                      var content = container.innerHTML;
+                      container.innerHTML= content; 
+                      //this line is to watch the result in console , you can remove it later	
+                      console.log("Refreshed"); 
+                  }
+              </script>
+              <a href="javascript: reload_results()">Refresh</a>
+              </body>
+          </p>
       </li>
-      {% for prediction in obj %}
-        <li> Predictions: {{prediction.Location}} <b>{{prediction.Location}}</b></li>
-      {% endfor %}
       </ul>
     {% else %}
       <div>Unknown</div>
