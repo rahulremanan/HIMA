@@ -2,12 +2,12 @@
 
 {% block content %}
 
-<h3>Image</h3>
+<h3>Image:</h3>
 
 <div class="media">
   <div class="media-left">
     {% if image_url %}
-      <img src="{{image_url}}" style="max-width:50%; height:auto">
+      <img src="{{image_url}}" style="max-width: 40%; height:auto">
     {% else %}
       <img src="goo.gl/rgRqXT">
     {% endif %}
@@ -23,10 +23,8 @@
                   name="results_object"
                   id = "results_object"
                   marginwidth="0" 
-                  marginheight="40" 
-                  width="240" 
-                  height="120" 
-                  scrolling="no" 
+                  marginheight="0" 
+                  style="max-width: 100%; height:auto"
                   frameborder=0 
                   data = "{{predictions}}" >
           </object>
@@ -40,7 +38,9 @@
                       console.log("Refreshed"); 
                   }
               </script>
-              <a href="javascript: reload_results()">Refresh</a>
+              <a href="javascript: reload_results()">
+                  <button type="submit" class="btn btn-success" label="Refresh results" name="Refresh_results">Refresh</button>
+              </a>
               </body>
           </p>
       </li>
