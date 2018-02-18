@@ -64,7 +64,11 @@ def main():
             print ('Received file: ... ' + secure_filename(img.filename))
             print (filename)
             img_stream = img.read()
-            img_data= Image.open(BytesIO(img_stream))
+            try:
+                img_data= Image.open(BytesIO(img_stream))
+            except OSError as e:
+                flash ("Unable to read image data ...")
+                return render_template('form.html')                
             img_data.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             predictions = fetch_predictions_filename(filename=filename)
             print (predictions.json()["Location"])
