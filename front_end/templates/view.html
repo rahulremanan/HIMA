@@ -15,7 +15,7 @@
   <div>
     {% if prediction_loc %}
       <ul class="list-unstyled">
-      <li> <b> Prediction:  </b>
+      <li> <b> Response:  </b>
           <p id="HTML object demo">
           <body>
           <div id="results">
@@ -40,7 +40,7 @@
           </object>
           </div>
               <script>
-                  function reload_results(){
+                  function reload_response(){
                       var container = document.getElementById("results");
                       var content = container.innerHTML;
                       container.innerHTML= content;
@@ -50,22 +50,24 @@
               </script>
               <br/>
               <hr/>
-              <a href="javascript: reload_results()">
-                  <button type="submit" class="btn btn-success" label="Refresh results" name="Refresh results">Refresh</button>
+              <a href="javascript: reload_reponse()">
+                  <button type="submit" class="btn btn-success" label="Refresh" name="Refresh">Refresh</button>
               </a>
               <br/>
               <hr/>
-              <b> Prediction:  </b>
-              <p id="javascript_demo_0"></p>
+              <h3> Prediction:  </h3>
+              <b> Classificiation:  </b>
               <p id="javascript_demo_1"></p>
+              <b> Confidence level:  </b>
+              <p id="javascript_demo_2"></p>
               <script>
-                  function reload_results_js(){
+                  function reload_results(){
                       var post_result = JSON.parse(httpGet("{{prediction_loc}}"));
-                      var post_container_0 = document.getElementById("javascript_demo_0");
                       var post_container_1 = document.getElementById("javascript_demo_1");
+                      var post_container_2 = document.getElementById("javascript_demo_2");
                       if (post_result.state == "SUCCESS") {
                           post_container_1.innerHTML = post_result.result.prediction_label;
-                          post_container_0.innerHTML = post_result.result.confidence_level;
+                          post_container_2.innerHTML = post_result.result.confidence_level;
                       } else if (post_result.state == "PENDING") {
                           post_container_1.innerHTML = "Processing prediction ..."
                       } else {
@@ -75,8 +77,8 @@
               </script>
               <br/>
               <hr/>
-              <a href="javascript: reload_results_js()">
-                  <button type="submit" class="btn btn-success" label="Refresh results" name="Refresh results">Results</button>
+              <a href="javascript: reload_results()">
+                  <button type="submit" class="btn btn-success" label="Results" name="Results">Results</button>
               </a>
               </body>
           </p>
