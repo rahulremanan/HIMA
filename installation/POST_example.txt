@@ -47,7 +47,7 @@ curl -X POST -H "Content-Type: application/json" -d @- http://server_id/async/
 (echo -n '{"data": "'; base64 ./18.jpg; echo '"}') |
 curl -X POST -H "Content-Type: application/json" -d @- http://server_id/async/
 
--- Using Google URL Shortening API --
+-- Async Using Google URL Shortening API --
 
 http://server_id/async/goo.gl/kjRAUf
 http://server_id/async/goo.gl/RyMjBD
@@ -55,3 +55,24 @@ http://server_id/async/goo.gl/rgRqXT
 http://server_id/async/goo.gl/Hhnzkt
 http://server_id/async/goo.gl/S4fLDt
 http://server_id/async/goo.gl/9fo1FU
+
+-- Async using Ruby 2.3.3 --
+
+This requires the multipart-post library: https://github.com/nicksieger/multipart-post
+
+Install using gem:
+
+$ sudo gem install multipart-post
+
+Posting using Ruby:
+
+require 'net/http/post/multipart'
+
+url = URI.parse('http://35.190.154.7:8000/async/upload/')
+File.open("./ICIAR/00.jpg") do |jpg|
+  req = Net::HTTP::Post::Multipart.new url.path,
+    "file" => UploadIO.new(jpg, "image/jpeg", "image.jpg")
+  res = Net::HTTP.start(url.host, url.port) do |http|
+    http.request(req)
+  end
+end

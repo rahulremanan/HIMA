@@ -64,33 +64,33 @@ stdout_logfile_backups=10
 stdout_capture_maxbytes=1MB
 
 -- Reload supervisor configuration file --
-$sudo supervisorctl reload
+$ sudo supervisorctl reload
 
 -- Start jupyterhub --
-$sudo supervisorctl start celery
-$sudo supervisorctl start redis
-$sudo supervisorctl start app
+$ sudo supervisorctl start celery
+$ sudo supervisorctl start redis
+$ sudo supervisorctl start app
 
 -- Enable supervisor at startup --
-$sudo systemctl enable supervisor.service
-$sudo systemctl enable supervisor
-$sudo systemctl restart supervisor
+$ sudo systemctl enable supervisor.service
+$ sudo systemctl enable supervisor
+$ sudo systemctl restart supervisor
 
 -- Add supervisor as a service --
 
-$sudo service supervisor start	# Check if supervisor starts
-$sudo /etc/init.d/supervisor start # Check if supervisor starts from init.d
+$ sudo service supervisor start	# Check if supervisor starts
+$ sudo /etc/init.d/supervisor start # Check if supervisor starts from init.d
 
-$sudo update-rc.d supervisor defaults	# Add init script to startup
+$ sudo update-rc.d supervisor defaults	# Add init script to startup
 
 -- Check supervisor status --
-$sudo service supervisor status
+$ sudo service supervisor status
 
 -- Add to system wide crontab --
-$cd /etc/
-$sudo nano crontab
+$ cd /etc/
+$ sudo nano crontab
 
-@reboot supervisorctl reload
+@reboot supervisorctl reload &
 
 # Read logs:
 
