@@ -8,26 +8,71 @@ redis-cli flushdb
 sudo pip3 install celery redis python-keystoneclient
 
 # Execute inside Celery app folder:
-celery worker -A app.celery --loglevel=info
+celery worker -A app.celery --loglevel=info -P solo --concurrency=3 --autoscale
 
-# Run at start-up:
-update-rc.d cron defaults
-sudo service cron  start
+# Run Jomiraki API server at startup using supervisor:
 
-update-rc.d redis defaults 100
-update-rc.d app defaults 100
-update-rc.d celery defaults 100
+-- Install supervisor --
+$sudo apt-get install supervisor
 
-sudo chmod +x ./app
-sudo chmod +x ./celery
+-- Edit supervisor configuration file --
+$sudo nano /etc/supervisor/suprevisor.conf
 
-sudo service cron start
+[program:redis]
+user=root
+command=/home/rahul/Jomiraki/redis
+directory=/home/rahul/Jomiraki/
+autostart=true
+autorestart=true
+startretries=1
+exitcodes=0,2
+stopsignal=TERM
+redirect_stderr=true
+stdout_logfile=/var/log/redis.log
+stdout_logfile_maxbytes=1MB
+stdout_logfile_backups=10
+stdout_capture_maxbytes=1MB
 
--- Not recommended --
-$ crontab -e
-@reboot /home/rahul/Jomiraki/redis &
-@reboot /home/rahul/Jomiraki/celery &
-@reboot /home/rahul/Jomiraki/app &
+[program:celery]
+user=root
+command= /home/rahul/Jomiraki/celery
+directory=/home/rahul/Jomiraki/
+autostart=true
+autorestart=true
+startretries=1
+exitcodes=0,2
+stopsignal=TERM
+redirect_stderr=true
+stdout_logfile=/var/log/celery.log
+stdout_logfile_maxbytes=1MB
+stdout_logfile_backups=10
+stdout_capture_maxbytes=1MB
+
+[program:app]
+user=root
+command=/home/rahul/Jomiraki/app
+directory=/home/rahul/Jomiraki/
+autostart=true
+autorestart=true
+startretries=1
+exitcodes=0,2
+stopsignal=TERM
+redirect_stderr=true
+stdout_logfile=/var/log/app.log
+stdout_logfile_maxbytes=1MB
+stdout_logfile_backups=10
+stdout_capture_maxbytes=1MB
 
 
+-- Reload supervisor configuration file --
+$sudo supervisorctl reload
 
+-- Start jupyterhub --
+$sudo supervisorctl start celery
+$sudo supervisorctl start redis
+$sudo supervisorctl start app
+
+-- Enable supervisor at startup --
+$sudo systemctl enable supervisor.service
+$sudo systemctl enable supervisor
+$sudo systemctl restart supervisor
