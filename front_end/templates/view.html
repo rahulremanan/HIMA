@@ -13,33 +13,70 @@
     {% endif %}
   </div>
   <div>
-    {% if predictions %}
+    {% if prediction_loc %}
       <ul class="list-unstyled">
       <li> <b> Prediction:  </b>
-          <p id="Predictions">
+          <p id="HTML object demo">
           <body>
           <div id="results">
+          <script>
+              function httpGet(theUrl)
+              {
+                  var xmlHttp = new XMLHttpRequest();
+                  xmlHttp.open( "GET", theUrl, false ); // false for synchronous request. Async result and status are synchronous
+                  xmlHttp.send( null );
+                  return xmlHttp.responseText;
+              }         
+          </script>
           <object type="text/html" 
                   name="results_object"
                   id = "results_object"
                   marginwidth="0" 
                   marginheight="0" 
-                  style="max-width: 100%; height:auto"
+                  width="480" 
+                  height= auto 
                   frameborder=0 
-                  data = "{{predictions}}" >
+                  data = "{{prediction_loc}}" >
           </object>
           </div>
               <script>
                   function reload_results(){
                       var container = document.getElementById("results");
                       var content = container.innerHTML;
-                      container.innerHTML= content; 
+                      container.innerHTML= content;
                       //this line is to watch the result in console , you can remove it later	
                       console.log("Refreshed"); 
                   }
               </script>
+              <br/>
+              <hr/>
               <a href="javascript: reload_results()">
-                  <button type="submit" class="btn btn-success" label="Refresh results" name="Refresh_results">Refresh</button>
+                  <button type="submit" class="btn btn-success" label="Refresh results" name="Refresh results">Refresh</button>
+              </a>
+              <br/>
+              <hr/>
+              <b> Prediction:  </b>
+              <p id="javascript_demo_0"></p>
+              <p id="javascript_demo_1"></p>
+              <script>
+                  function reload_results_js(){
+                      var post_result = JSON.parse(httpGet("{{prediction_loc}}"));
+                      var post_container_0 = document.getElementById("javascript_demo_0");
+                      var post_container_1 = document.getElementById("javascript_demo_1");
+                      if (post_result.state == "SUCCESS") {
+                          post_container_1.innerHTML = post_result.result.prediction_label;
+                          post_container_0.innerHTML = post_result.result.confidence_level;
+                      } else if (post_result.state == "PENDING") {
+                          post_container_1.innerHTML = "Processing prediction ..."
+                      } else {
+                          post_container_1.innerHTML = "Failed processing prediction. Resubmit files ..."
+                      };
+                  }
+              </script>
+              <br/>
+              <hr/>
+              <a href="javascript: reload_results_js()">
+                  <button type="submit" class="btn btn-success" label="Refresh results" name="Refresh results">Results</button>
               </a>
               </body>
           </p>
