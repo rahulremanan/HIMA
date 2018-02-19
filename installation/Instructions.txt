@@ -63,7 +63,6 @@ stdout_logfile_maxbytes=1MB
 stdout_logfile_backups=10
 stdout_capture_maxbytes=1MB
 
-
 -- Reload supervisor configuration file --
 $sudo supervisorctl reload
 
@@ -92,3 +91,9 @@ $cd /etc/
 $sudo nano crontab
 
 @reboot supervisorctl reload
+
+# Read logs:
+
+$sudo nano /var/log/app.log
+$sudo nano /var/log/celery.log
+$sudo nano /var/log/redis.log
