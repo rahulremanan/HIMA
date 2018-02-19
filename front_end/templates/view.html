@@ -18,19 +18,19 @@
       <li> <b> Response:  </b>
           <p id="HTML object demo">
           <body>
-          <div id="results">
+          <div id="response">
           <script>
-              function httpGet(theUrl)
+              function httpGet(Url)
               {
                   var xmlHttp = new XMLHttpRequest();
-                  xmlHttp.open( "GET", theUrl, false ); // false for synchronous request. Async result and status are synchronous
+                  xmlHttp.open( "GET", Url, false ); // false for synchronous request. Async status and results are synchronous
                   xmlHttp.send( null );
                   return xmlHttp.responseText;
               }         
           </script>
           <object type="text/html" 
-                  name="results_object"
-                  id = "results_object"
+                  name="response_object"
+                  id = "response_object"
                   marginwidth="0" 
                   marginheight="0" 
                   width="480" 
@@ -40,21 +40,21 @@
           </object>
           </div>
               <script>
-                  function reload_response(){
-                      var container = document.getElementById("results");
+                  function reload_output(){
+                      var container = document.getElementById("response");
                       var content = container.innerHTML;
                       container.innerHTML= content;
-                      //this line is to watch the result in console , you can remove it later	
-                      console.log("Refreshed"); 
+                      console.log("Refreshed"); //this line is to watch the result in console , you can remove it later
                   }
               </script>
               <br/>
               <hr/>
-              <a href="javascript: reload_reponse()">
-                  <button type="submit" class="btn btn-success" label="Refresh" name="Refresh">Refresh</button>
+              <a href="javascript: reload_output()">
+                  <button type="submit" class="btn btn-success" label="Refresh" name="Refresh"> Refresh </button>
               </a>
               <br/>
               <hr/>
+              <b> </b>
               <h3> Prediction:  </h3>
               <b> Classificiation:  </b>
               <p id="javascript_demo_1"></p>
@@ -78,7 +78,7 @@
               <br/>
               <hr/>
               <a href="javascript: reload_results()">
-                  <button type="submit" class="btn btn-success" label="Results" name="Results">Results</button>
+                  <button type="submit" class="btn btn-success" label="Results" name="Results"> Results </button>
               </a>
               </body>
           </p>
