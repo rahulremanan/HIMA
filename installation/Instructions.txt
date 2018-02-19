@@ -78,8 +78,8 @@ $sudo systemctl restart supervisor
 
 -- Add supervisor as a service --
 
-$sudo /etc/init.d/supervisor start 	# Check if supervisor starts
-$sudo service supervisor start 		# Check if supervisor starts from init.d
+$sudo service supervisor start	# Check if supervisor starts
+$sudo /etc/init.d/supervisor start # Check if supervisor starts from init.d
 
 $sudo update-rc.d supervisor defaults	# Add init script to startup
 
