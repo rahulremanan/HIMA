@@ -1,14 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3>{{action}} Image</h3>
+<h4>{{action}} Upload image</h4>
 <form method="POST" enctype="multipart/form-data">
   <div class="form-group">
-    <label for="image">Image</label>
     <input type="file" name="file" id="file" class="form-control"/>
   </div>
-
-  <button type="submit" class="btn btn-success">Run Predictions</button>
+  <button type="submit" class="btn btn-success">Predict</button>
 </form>
 
 {% endblock %}
