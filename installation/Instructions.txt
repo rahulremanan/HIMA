@@ -1,14 +1,14 @@
 #Execute inside the redis folder:
-sudo chmod +x ./redis
-sudo ./redis.sh
+$sudo chmod +x ./redis
+$sudo ./redis.sh
 
 # To remove unfinished tasks:
-redis-cli flushdb
+$redis-cli flushdb
 
-sudo pip3 install celery redis python-keystoneclient
+$sudo pip3 install celery redis python-keystoneclient
 
 # Execute inside Celery app folder:
-celery worker -A app.celery --loglevel=info -P solo --concurrency=3 --autoscale
+$celery worker -A app.celery --loglevel=info -P solo --concurrency=3 --autoscale
 
 # Run Jomiraki API server at startup using supervisor:
 
@@ -76,3 +76,19 @@ $sudo supervisorctl start app
 $sudo systemctl enable supervisor.service
 $sudo systemctl enable supervisor
 $sudo systemctl restart supervisor
+
+-- Add supervisor as a service --
+
+$sudo /etc/init.d/supervisor start 	# Check if supervisor starts
+$sudo service supervisor start 		# Check if supervisor starts from init.d
+
+$sudo update-rc.d supervisor defaults	# Add init script to startup
+
+-- Check supervisor status --
+$sudo service supervisor status
+
+-- Add to system wide crontab --
+$cd /etc/
+$sudo nano crontab
+
+@reboot supervisorctl reload
