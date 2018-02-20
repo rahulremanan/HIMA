@@ -97,3 +97,12 @@ $ sudo nano crontab
 $sudo nano /var/log/app.log
 $sudo nano /var/log/celery.log
 $sudo nano /var/log/redis.log
+
+# Fix /var/run/supervisor.sock no such file error:
+sudo touch /var/run/supervisor.sock
+sudo chmod 777 /var/run/supervisor.sock
+sudo service supervisor restart
+
+echo_supervisord_conf > /etc/supervisord.conf
+sudo supervisord -c /etc/supervisord.conf
+sudo supervisorctl status
