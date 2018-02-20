@@ -16,46 +16,7 @@
     {% if prediction_loc %}
       <hr/>
       <ul class="list-unstyled">
-      <li> <h3> Response:  </h3>
-          <p id="HTML object demo">
-          <body>
-          <hr/>
-          <a href="javascript: reload_output()">
-              <button type="submit" class="btn btn-success" label="Refresh" name="Refresh"> Refresh </button>
-          </a>
-          <hr/>
-          <div id="response">
-          <script>
-              function httpGet(Url)
-              {
-                  var xmlHttp = new XMLHttpRequest();
-                  xmlHttp.open( "GET", Url, false ); // false for synchronous request. Async-status & prediction responses are synchronous.
-                  xmlHttp.send( null );
-                  return xmlHttp.responseText;
-              }         
-          </script>
-          <object type="text/html" 
-                  name="response_object"
-                  id = "response_object"
-                  marginwidth="0" 
-                  marginheight="0" 
-                  width="480" 
-                  height= auto 
-                  frameborder=0 
-                  data = "{{prediction_loc}}" >
-          </object>
-          </div>
-              <script>
-                  function reload_output(){
-                      var container = document.getElementById("response");
-                      var content = container.innerHTML;
-                      container.innerHTML= content;
-                      console.log("Refreshed"); //this line is to watch the result in console , you can remove it later
-                  }
-              </script>
-              <hr/>
-              <b> </b>
-              <h3> Prediction:  </h3>
+      <li><h3> Prediction:  </h3>
               <hr/>
               <a href="javascript: reload_results()">
                   <button type="submit" class="btn btn-success" label="Results" name="Results"> Results </button>
@@ -90,7 +51,44 @@
                       };
                   }
               </script>
-              <br/>
+              <hr/>
+          <h3> Response:  </h3>
+          <p id="HTML object demo">
+          <body>
+          <hr/>
+          <a href="javascript: reload_output()">
+              <button type="submit" class="btn btn-success" label="Refresh" name="Refresh"> Refresh </button>
+          </a>
+          <hr/>
+          <div id="response">
+          <script>
+              function httpGet(Url)
+              {
+                  var xmlHttp = new XMLHttpRequest();
+                  xmlHttp.open( "GET", Url, false ); // false for synchronous request. Async-status & prediction responses are synchronous.
+                  xmlHttp.send( null );
+                  return xmlHttp.responseText;
+              }         
+          </script>
+          <object type="text/html" 
+                  name="response_object"
+                  id = "response_object"
+                  marginwidth="0" 
+                  marginheight="0" 
+                  width= 395 
+                  height= 280 
+                  frameborder=0 
+                  data = "{{prediction_loc}}" >
+          </object>
+          </div>
+              <script>
+                  function reload_output(){
+                      var container = document.getElementById("response");
+                      var content = container.innerHTML;
+                      container.innerHTML= content;
+                      console.log("Refreshed"); //this line is to watch the result in console , you can remove it later
+                  }
+              </script>
               <hr/>
               </body>
           </p>
