@@ -20,7 +20,7 @@ app = Flask(__name__)
 
 UPLOAD_FOLDER = '/home/rahul/Jomiraki/upload/'
 ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif']
-SERVER_URL = 'http://192.168.2.2:8080'
+SERVER_URL = 'http://35.190.154.7:8000'
 APP_URL = 'http://192.168.2.2:5000'
 
 app.config.from_object(config)
@@ -98,7 +98,8 @@ def main():
             return render_template('view.html', \
                                image_url=app.config['APP_URL']+ '/uploads/' \
                                + filename,\
-                               predictions=predictions.json()["Location"])
+                               prediction_loc=predictions.json()["Location"],\
+                               predictions=predictions.json())
         else:
             flash ("No image file selected ...")
             return render_template('form.html')
