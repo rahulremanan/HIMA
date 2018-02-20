@@ -14,16 +14,22 @@
   </div>
   <div>
     {% if prediction_loc %}
+      <hr/>
       <ul class="list-unstyled">
-      <li> <b> Response:  </b>
+      <li> <h3> Response:  </h3>
           <p id="HTML object demo">
           <body>
+          <hr/>
+          <a href="javascript: reload_output()">
+              <button type="submit" class="btn btn-success" label="Refresh" name="Refresh"> Refresh </button>
+          </a>
+          <hr/>
           <div id="response">
           <script>
               function httpGet(Url)
               {
                   var xmlHttp = new XMLHttpRequest();
-                  xmlHttp.open( "GET", Url, false ); // false for synchronous request. Async status and results are synchronous
+                  xmlHttp.open( "GET", Url, false ); // false for synchronous request. Async-status & prediction responses are synchronous.
                   xmlHttp.send( null );
                   return xmlHttp.responseText;
               }         
@@ -47,15 +53,14 @@
                       console.log("Refreshed"); //this line is to watch the result in console , you can remove it later
                   }
               </script>
-              <br/>
-              <hr/>
-              <a href="javascript: reload_output()">
-                  <button type="submit" class="btn btn-success" label="Refresh" name="Refresh"> Refresh </button>
-              </a>
-              <br/>
               <hr/>
               <b> </b>
               <h3> Prediction:  </h3>
+              <hr/>
+              <a href="javascript: reload_results()">
+                  <button type="submit" class="btn btn-success" label="Results" name="Results"> Results </button>
+              </a>
+              <hr/>
               <b> Classificiation:  </b>
               <p id="javascript_demo_1"></p>
               <b> Confidence level:  </b>
@@ -67,19 +72,26 @@
                       var post_container_2 = document.getElementById("javascript_demo_2");
                       if (post_result.state == "SUCCESS") {
                           post_container_1.innerHTML = post_result.result.prediction_label;
-                          post_container_2.innerHTML = post_result.result.confidence_level;
+                          if (post_result.result.prediction_label == 'Benign') {
+                              post_container_2.innerHTML = parseFloat(post_result.result.confidence_level.slice(1, 5))*100 + " %";
+                          } else if (post_result.result.prediction_label == 'Insitu') {
+                              post_container_2.innerHTML = parseFloat(post_result.result.confidence_level.slice(7, 11))*100 + " %";
+                          } else if (post_result.result.prediction_label == 'Invasive') {
+                              post_container_2.innerHTML = parseFloat(post_result.result.confidence_level.slice(13, 17))*100 + " %";
+                          } else if (post_result.result.prediction_label == 'Normal') {
+                              post_container_2.innerHTML = parseFloat(post_result.result.confidence_level.slice(19, 23))*100 + " %";
+                          } else {
+                              post_container_2.innerHTML = 'Unknown label';
+                          }
                       } else if (post_result.state == "PENDING") {
-                          post_container_1.innerHTML = "Processing prediction ..."
+                          post_container_1.innerHTML = "Processing prediction ...";
                       } else {
-                          post_container_1.innerHTML = "Failed processing prediction. Resubmit files ..."
+                          post_container_1.innerHTML = "Failed processing prediction. Resubmit files ...";
                       };
                   }
               </script>
               <br/>
               <hr/>
-              <a href="javascript: reload_results()">
-                  <button type="submit" class="btn btn-success" label="Results" name="Results"> Results </button>
-              </a>
               </body>
           </p>
       </li>
