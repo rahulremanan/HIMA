@@ -20,8 +20,8 @@ app = Flask(__name__)
 
 UPLOAD_FOLDER = '/home/rahul/Jomiraki/upload/'
 ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif']
-SERVER_URL = 'http://192.168.2.2:8082'
-APP_URL = 'http://192.168.2.2:5000'
+SERVER_URL = '<api_server_url>'
+APP_URL = '<app_server_url>'
 
 app.config.from_object(config)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
