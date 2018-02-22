@@ -76,3 +76,9 @@ File.open("./ICIAR/00.jpg") do |jpg|
     http.request(req)
   end
 end
+
+# Batch submit files:
+
+for f in /home/rahul/Jomiraki/data/*.jpg ; do
+curl -F 'file=@'$f <server_id>
+done;
