@@ -20,8 +20,8 @@ app = Flask(__name__)
 
 UPLOAD_FOLDER = '/home/rahul/Jomiraki/upload/'
 ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif']
-SERVER_URL = '<api_server_url>'
-APP_URL = '<app_server_url>'
+SERVER_URL = 'http://192.168.2.2:8000'
+APP_URL = 'http://192.168.2.2:5000'
 
 app.config.from_object(config)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -73,6 +73,7 @@ def main():
             print ('File received: ... ' + secure_filename(img.filename))
             print (filename)
             img_stream = img.read()
+            img.close()
             del img
             gc.collect()
             try:
@@ -120,4 +121,4 @@ def server_error(e):
 if __name__=="__main__":
     app.secret_key = 'super secret key'
     app.config['SESSION_TYPE'] = 'filesystem'
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=False)
