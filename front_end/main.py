@@ -116,6 +116,11 @@ def fetch_file(filename):
 @app.errorhandler(500)
 def server_error(e):
     logging.error('An error occurred during a request.')
+    return render_template('form.html')
+
+@app.errorhandler(500)
+def server_error(e):
+    logging.error('An error occurred during a request.')
     return 'An internal error occurred.', 500
 
 if __name__=="__main__":
