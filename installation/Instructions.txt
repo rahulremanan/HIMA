@@ -1,11 +1,12 @@
+# Install dependencies:
+$ sudo pip3 install celery redis python-keystoneclient numpy PyDicom matplotlib scipy sklearn scikit-image
+
 #Execute inside the redis folder:
 $ sudo chmod +x ./redis
 $ sudo ./redis.sh
 
 # To remove unfinished tasks:
 $ redis-cli flushdb
-
-$ sudo pip3 install celery redis python-keystoneclient
 
 # Execute inside Celery app folder:
 $ celery worker -A app.celery --loglevel=info -P solo --concurrency=3 --autoscale
