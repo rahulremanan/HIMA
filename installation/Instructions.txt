@@ -17,7 +17,7 @@ $ celery worker -A app.celery --loglevel=info -P solo --concurrency=3 --autoscal
 $ sudo apt-get install supervisor
 
 -- Edit supervisor configuration file --
-$ sudo nano /etc/supervisor/suprevisor.conf
+$ sudo nano /etc/supervisor/supervisord.conf
 
 [program:redis]
 user=root
@@ -60,6 +60,21 @@ exitcodes=0,2
 stopsignal=TERM
 redirect_stderr=true
 stdout_logfile=/var/log/app.log
+stdout_logfile_maxbytes=1MB
+stdout_logfile_backups=10
+stdout_capture_maxbytes=1MB
+
+[program:main]
+user=root
+command=/home/rahul/Jomiraki/main
+directory=/home/rahul/Jomiraki/
+autostart=true
+autorestart=true
+startretries=1
+exitcodes=0,2
+stopsignal=TERM
+redirect_stderr=true
+stdout_logfile=/var/log/main.log
 stdout_logfile_maxbytes=1MB
 stdout_logfile_backups=10
 stdout_capture_maxbytes=1MB
