@@ -1,7 +1,12 @@
 import config
 import logging
-from flask import current_app, Flask, render_template, request, flash, \
-send_file, send_from_directory
+from flask import   current_app,        \
+                    Flask,              \
+                    render_template,    \
+                    request,            \
+                    flash,              \
+                    send_file,          \
+                    send_from_directory 
 import urllib
 import base64
 import json
@@ -20,8 +25,8 @@ app = Flask(__name__)
 
 UPLOAD_FOLDER = '/home/rahul/Jomiraki/upload/'
 ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif']
-SERVER_URL = 'http://192.168.2.2:8000'
-APP_URL = 'http://192.168.2.2:5000'
+SERVER_URL = 'http://192.168.2.4:8000'
+APP_URL = 'http://192.168.2.4:80'
 
 app.config.from_object(config)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -106,7 +111,7 @@ def main():
             flash ("No image file selected ...")
             return render_template('form.html')
     else:
-        flash("Image file not supported ...")
+        flash ("File format not supported ...")
         return render_template('form.html')
 
 @app.route('/uploads/<filename>')
@@ -126,4 +131,4 @@ def server_error(e):
 if __name__=="__main__":
     app.secret_key = 'super secret key'
     app.config['SESSION_TYPE'] = 'filesystem'
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    app.run(host='0.0.0.0', port=80, debug=False)

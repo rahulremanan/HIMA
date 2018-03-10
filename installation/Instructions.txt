@@ -122,3 +122,7 @@ sudo service supervisor restart
 echo_supervisord_conf > /etc/supervisord.conf
 sudo supervisord -c /etc/supervisord.conf
 sudo supervisorctl status
+
+-- Optional --
+# Shutdown Apache server at port 80:
+sudo systemctl stop apache2.service
