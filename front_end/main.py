@@ -1,3 +1,4 @@
+#!/usr/bin/python3.6
 import config
 import logging
 from flask import   current_app,        \
@@ -16,25 +17,36 @@ import requests
 from PIL import Image
 from io import BytesIO
 from urllib.parse import urlencode
-from urllib.request import Request, urlopen
+from urllib.request import Request,     \ 
+                           urlopen
 import random
 import string
 import gc
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = '/home/rahul/Jomiraki/upload/'
-ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif']
-SERVER_URL = 'http://192.168.2.4:8000'
-APP_URL = 'http://192.168.2.4:80'
+UPLOAD_FOLDER = '/home/rahul/Jomiraki/upload/'                                  # Change this to the correct local directory ...
+SERVER_URL = 'http://192.168.2.4:8000'                                          # Change this to the API server url ...
+APP_URL = 'http://192.168.2.4:80'                                               # Change this to the app server url ...
+
+ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif'] 
 
 app.config.from_object(config)
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SERVER_URL'] = SERVER_URL
 app.config['APP_URL'] = APP_URL
 app.config['ALLOWED_EXTENSIONS'] = ALLOWED_EXTENSIONS
 
 logging.basicConfig(level=logging.INFO)
+
+def is_valid_dir(dir_name):
+    if not os.path.isdir(dir_name):
+        print ("The folder: %s does not exist ..." % dir_name)
+        print ("Select an output folder location ...")
+    else:
+        print ("Found a folder: &s ..." % dir_name)
+        return dir_name
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -129,6 +141,7 @@ def server_error(e):
     return 'An internal error occurred.', 500
 
 if __name__=="__main__":
+    is_valid_dir(app.config['UPLOAD_FOLDER'])
     app.secret_key = 'super secret key'
     app.config['SESSION_TYPE'] = 'filesystem'
     app.run(host='0.0.0.0', port=80, debug=False)
