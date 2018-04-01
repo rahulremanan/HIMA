@@ -4,6 +4,7 @@ import random
 import warnings
 import types
 import time
+import gc
 
 import numpy as np
 import pandas as pd
@@ -40,7 +41,7 @@ IMG_HEIGHT = 256
 IMG_CHANNELS = 3
 
 DEFAULT_UNIT_SIZE = 128
-DEFAULT_DROPOUT = 0.85
+DEFAULT_DROPOUT = 0.55
 
 warnings.filterwarnings('ignore', category=UserWarning, module='skimage')
 seed = 1024
@@ -49,8 +50,8 @@ np.random.seed = seed
 
 args = types.SimpleNamespace()
 args.data_path = ['./data/']
-args.config_file = ['./model/trained_2018_03_20-16_12_26_config_UNetjson']
-args.weights_file = ['./model/trained_2018_03_20-16_12_26_weights_UNet.model']
+args.config_file = ['./model/trained_2018_03_21-13_26_55_config_UNet.json']
+args.weights_file = ['./model/trained_2018_03_21-13_26_55_weights_UNet.model']
 args.output_dir = ['./model/']
 
 checkpointer_savepath = os.path.join(args.output_dir[0]     +       
@@ -69,12 +70,64 @@ print (TRAIN_PATH)
 train_ids = next(os.walk(TRAIN_PATH))[1]
 test_ids = next(os.walk(TEST_PATH))[1]
 
-train_data = np.load(os.path.join(args.data_path[0]+'/train_aug_256.npz'))
-X_train = train_data['xtrain']
-Y_train = train_data['ytrain']
+use_pre_proc_images = True
+merge_pre_proc_images = True
 
-test_data = np.load(os.path.join(args.data_path[0]+'/test_256.npz'))
-X_test = test_data['xtest']
+if use_pre_proc_images == True and merge_pre_proc_images == False:
+    train_data = np.load(os.path.join(args.data_path[0]+'/train_pre_proc_256.npz'))
+elif use_pre_proc_images == False and merge_pre_proc_images == False:
+    train_data = np.load(os.path.join(args.data_path[0]+'/train_aug_256.npz'))
+elif use_pre_proc_images == True and merge_pre_proc_images == True:
+    train_data_pre_proc = np.load(os.path.join(args.data_path[0]+'/train_aug_256.npz'))
+    train_data_aug = np.load(os.path.join(args.data_path[0]+'/train_pre_proc_256.npz'))
+else:
+    train_data = np.load(os.path.join(args.data_path[0]+'/train_aug_256.npz'))
+
+if merge_pre_proc_images == True:
+    X_train_aug = train_data_aug['xtrain']
+    Y_train_aug = train_data_aug['ytrain']
+    
+    X_train_pre_proc = train_data_pre_proc['xtrain']
+    Y_train_pre_proc = train_data_pre_proc['ytrain']
+    
+    X_train = np.concatenate((X_train_aug , X_train_pre_proc), axis =0)
+    Y_train = np.concatenate((Y_train_aug , Y_train_pre_proc), axis =0)
+    
+    del train_data_aug
+    del train_data_pre_proc
+    del X_train_aug
+    del Y_train_aug
+    del X_train_pre_proc
+    del Y_train_pre_proc
+    gc.collect()
+else:    
+    X_train = train_data['xtrain']
+    Y_train = train_data['ytrain']
+    del train_data
+    gc.collect()
+    
+if len(X_train) != len(Y_train):
+    print ("Mismatched images and prediction masks for training data ...")
+    sys.exit(1)
+    
+split_data = False
+split_factor = 4
+
+if split_data == True:
+    sample_size = len(X_train)
+    split_size = sample_size//split_factor
+    n =(randint(0, split_size))
+    try:
+        X_train = X_train[n:((sample_size - split_size) + n)]
+        Y_train = Y_train[n:((sample_size - split_size) + n)]
+    except:
+        print ("Failed to split training data ...")
+        X_train = X_train
+        Y_train = Y_train
+else:
+    X_train = X_train
+    Y_train = Y_train
+
 
 def mean_iou(y_true, y_pred):
     prec = []
@@ -263,7 +316,7 @@ def load_prediction_model_weights(args):
         print ("Error loading model weights ...")
         sys.exit(1)
 
-load_from_checkpoint = False
+load_from_checkpoint = True
 load_from_config = False
 load_model_weights = False
 
