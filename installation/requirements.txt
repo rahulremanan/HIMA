@@ -85,7 +85,6 @@ py-cpuinfo
 pycodestyle
 pycosat
 pycparser
-pydaal
 pyflakes
 Pygments
 pylint
