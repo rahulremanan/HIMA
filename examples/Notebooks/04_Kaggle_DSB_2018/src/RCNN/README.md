@@ -12,14 +12,23 @@ I did almost no changes to the original code, except for:
 
 ## Quick Start
 
-1. First, you have to download the train masks. Thanks [@lopuhin](https://github.com/lopuhin/) for bringing all the fixes to one place. You might want to do it outside of this repo to be able to pull changes later and use symlinks:
+1. First, you have to download the train masks. Thanks [@lopuhin](https://github.com/lopuhin/) for bringing all the fixes to one place.
 
 ```bash
 git clone https://github.com/lopuhin/kaggle-dsbowl-2018-dataset-fixes ../kaggle-dsbowl-2018-dataset-fixes
+
+2. Clone the HIMA repository and move into the examples folder:
+
+git clone https://github.com/MoadComputer/HIMA/
+
+cd ~/HIMA/examples/Notebooks/04_Kaggle_DSB_2018/src/RCNN
+
+3. Generate a symbolic link for the stage1_train dataset:
+
 ln -s ../kaggle-dsbowl-2018-dataset-fixes/stage1_train stage1_train
 ```
 
-2. Download the rest of the official dataset and unzip it to the repo:
+4. Download the rest of the official dataset and unzip it to the repo:
 
 ```bash
 unzip ~/Downloads/stage1_test.zip -d stage1_test
