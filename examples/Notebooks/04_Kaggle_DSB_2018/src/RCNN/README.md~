@@ -36,15 +36,15 @@ unzip ~/Downloads/stage1_train_labels.csv.zip -d .
 unzip ~/Downloads/stage1_sample_submission.csv.zip -d .
 ```
 
-5. Install `pycocotools` and COCO pretrained weights (`mask_rcnn_coco.h5`). General idea is described [here](https://github.com/matterport/Mask_RCNN#installation). Keep in mind, to install pycocotools properly, it's better to run `make install` instead of `make`.
+3. Install `pycocotools` and COCO pretrained weights (`mask_rcnn_coco.h5`). General idea is described [here](https://github.com/matterport/Mask_RCNN#installation). Keep in mind, to install pycocotools properly, it's better to run `make install` instead of `make`.
 
-6. For a single GPU training, run:
+4. For a single GPU training, run:
 
 ```
 CUDA_VISIBLE_DEVICES="0" python train.py
 ```
 
-7. To generate a submission, run:
+5. To generate a submission, run:
 
 ```
 CUDA_VISIBLE_DEVICES="0" python inference.py
@@ -52,7 +52,7 @@ CUDA_VISIBLE_DEVICES="0" python inference.py
 
 This will create `submission.csv` in the repo and overwrite the old one (you're welcome to fix this with a PR).
 
-8. Submit! You should get around 0.361 score on LB after 100 epochs.
+6. Submit! You should get around 0.361 score on LB after 100 epochs.
 
 ## What's else inside?
 
