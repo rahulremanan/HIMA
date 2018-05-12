@@ -127,3 +127,12 @@ webencodings
 Werkzeug
 widgetsnbextension
 wrapt
+celery 
+redis 
+python-keystoneclient 
+numpy 
+PyDicom 
+matplotlib 
+scipy 
+sklearn 
+scikit-image

@@ -1,6 +1,11 @@
 # Install dependencies:
 $ sudo pip3 install celery redis python-keystoneclient numpy PyDicom matplotlib scipy sklearn scikit-image
 
+-- OR --
+
+$ sudo chmod a+x ./Install_dependencies.sh
+$ sudo ./Install_dependencies.sh
+
 #Execute inside the redis folder:
 $ sudo chmod +x ./redis
 $ sudo ./redis.sh
