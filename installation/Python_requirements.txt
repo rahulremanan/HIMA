@@ -51,8 +51,6 @@ MarkupSafe
 matplotlib
 mccabe
 mistune
-mkl-random
-mpi4py
 mpmath
 nbconvert
 nbformat
