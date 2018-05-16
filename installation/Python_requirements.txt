@@ -51,7 +51,6 @@ MarkupSafe
 matplotlib
 mccabe
 mistune
-mpmath
 nbconvert
 nbformat
 nervananeon
@@ -118,7 +117,6 @@ testpath
 tornado
 tqdm
 traitlets
-urllib3
 wcwidth
 webencodings
 Werkzeug
