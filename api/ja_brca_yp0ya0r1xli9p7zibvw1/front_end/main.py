@@ -45,7 +45,10 @@ def is_valid_dir(dir_name):
         print ("The folder: %s does not exist ..." % dir_name)
         print ("Select an output folder location ...")
     else:
-        print ("Found a folder: &s ..." % dir_name)
+        try:
+            print ("Found an upload folder: &s ..." % str(dir_name))
+        except:
+            print ("Unknown upload directory")
         return dir_name
 
 def allowed_file(filename):
