@@ -65,8 +65,11 @@ def fetch_predictions(img_stream=None):
 
 def fetch_predictions_filename(filename=None):
     filename=filename
+    print ("Reading a local storage object: " + str(filename))
     server_url = app.config['SERVER_URL'] + '/async/upload/'
     file = (os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    print ("Local storage object location: " + str(file))
+    print ("Image submitted to the server: " + str(server_url))
     try:
         file_data = {'file': open(file, 'rb')}
     except:
