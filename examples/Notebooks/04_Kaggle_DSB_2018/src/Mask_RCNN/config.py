@@ -131,11 +131,11 @@ class Config(object):
     # The Mask RCNN paper uses lr=0.02, but on TensorFlow it causes
     # weights to explode. Likely due to differences in optimzer
     # implementation.
-    LEARNING_RATE = 1e-5
-    LEARNING_MOMENTUM = 0.9
+    LEARNING_RATE = 1e-7
+    LEARNING_MOMENTUM = 0.95 # 0.9
 
     # Weight decay regularization
-    WEIGHT_DECAY = 0.0001
+    WEIGHT_DECAY = 1e-2 # 0.0001
 
     # Use RPN ROIs or externally generated ROIs for training
     # Keep this True for most situations. Set to False if you want to train
@@ -144,7 +144,7 @@ class Config(object):
     # train the RPN.
     USE_RPN_ROIS = True
 
-    RESNET_ARCHITECTURE = "resnet101"
+    RESNET_ARCHITECTURE = "resnet156" # resnet50, resnet101, resnet156
 
     def __init__(self):
         """Set values of computed attributes."""
