@@ -39,7 +39,7 @@ class BowlConfig(Config):
 
     DETECTION_MAX_INSTANCES = 512
 
-    RESNET_ARCHITECTURE = "resnet50"
+    RESNET_ARCHITECTURE = "resnet156" # resnet50, resnet101, renset156
 
 
 bowl_config = BowlConfig()
