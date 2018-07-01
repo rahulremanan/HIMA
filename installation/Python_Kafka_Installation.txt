@@ -1,0 +1,104 @@
+# Install Apache Kafka in Ubuntu:
+
+-- Update package repository cache --
+
+$ sudo apt-get update
+
+-- Install OpenJDK 8 --
+
+$ sudo apt-get install -y openjdk-8-jdk
+
+-- Install ZooKeeper --
+
+$ sudo apt-get install -y zookeeperd
+
+-- Check whether zookeeper is running --
+
+$ sudo systemctl status zookeeper
+
+-- Start zookeeper --
+
+$ sudo systemctl start zookeeper
+
+-- Run zookeeper on system startup --
+
+$ sudo systemctl enable zookeeper
+
+-- Install net-tools for netstat --
+
+$ sudo apt-get install net-tools
+
+-- Check zookeeper running in port 2181 --
+
+$ sudo netstat -tulpen | grep 2181
+
+-- Download Apache Kafka binary --
+
+$ wget http://www-eu.apache.org/dist/kafka/1.1.0/kafka_2.12-1.1.0.tgz
+
+-- Create a directory in opt folder --
+
+$ sudo mkdir /opt/kafka
+
+-- Extract Apache Kafka archive to /opt/kafka/ directory --
+
+$ sudo tar xvzf kafka_2.12-1.1.0.tgz -C /opt/kafka
+
+-- Sanity check --
+
+$ ls /opt/kafka
+
+-- Edit /etc/profile/ --
+
+$ sudo nano /etc/profile
+
+-- Add the following lines at the end of the file and save --
+
+export KAFKA_HOME="/opt/kafka/kafka_2.12-1.1.0"
+export PATH="$PATH:${KAFKA_HOME}/bin"
+
+-- Edit ~/.bashrc --
+
+$ sudo nano ~/.bashrc
+
+-- Add the following to the end of the file --
+
+alias sudo='sudo env PATH="$PATH"'
+
+-- Reboot server --
+
+$ sudo reboot
+$ sudo source /etc/profile
+
+-- Check Kafka environment variables --
+
+$ echo $KAFKA_HOME
+$ echo $PATH
+
+-- Create a symbolic link --
+
+$ sudo ln -s $KAFKA_HOME/config/server.properties /etc/kafka.properties
+
+-- Start Kafka server --
+
+$ sudo kafka-server-start.sh /etc/kafka.properties
+
+-- Testing Apache Kafka --
+
+$ sudo kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1
+--partitions 1 --topic testing
+
+--Run Kafka Produced API --
+
+$ sudo kafka-console-producer.sh --broker-list localhost:9092 --topic testing
+
+-- Fetch message lines using Kafka Consumer API --
+
+$ sudo kafka-console-consumer.sh --zookeeper localhost:2181 --
+topic testing --from-beginning
+
+# Install python-kafka:
+
+$ sudo pip3 install kafka-python
+$ sudo pip3 install lz4
+$ sudo apt-get install libsnappy-dev
