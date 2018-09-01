@@ -21,14 +21,15 @@ from urllib.request import Request, urlopen
 import random
 import string
 import gc
+import os
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = '/home/rahul/Jomiraki/upload/'                                  # Change this to the correct local directory ...
+UPLOAD_FOLDER = './upload/'                                                     # Change this to the correct local directory ...
 SERVER_PORT = 8080
-SERVER_URL = 'http://192.168.2.4:{}'.format(SERVER_PORT)                        # Change this to the API server url ...
+SERVER_URL = 'http://192.168.2.3:{}'.format(SERVER_PORT)                        # Change this to the API server url ...
 APP_PORT = 8000
-APP_URL = 'http://192.168.2.4:{}'.format(APP_PORT)                              # Change this to the app server url ...
+APP_URL = 'http://192.168.2.3:{}'.format(APP_PORT)                              # Change this to the app server url ...
 
 ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif'] 
 
@@ -40,6 +41,9 @@ app.config['APP_URL'] = APP_URL
 app.config['ALLOWED_EXTENSIONS'] = ALLOWED_EXTENSIONS
 
 logging.basicConfig(level=logging.INFO)
+
+if not os.path.exists(UPLOAD_FOLDER):
+    os.mkdir(UPLOAD_FOLDER)
 
 def is_valid_dir(dir_name):
     if not os.path.isdir(dir_name):
