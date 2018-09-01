@@ -25,8 +25,10 @@ import gc
 app = Flask(__name__)
 
 UPLOAD_FOLDER = '/home/rahul/Jomiraki/upload/'                                  # Change this to the correct local directory ...
-SERVER_URL = 'http://192.168.2.4:8000'                                          # Change this to the API server url ...
-APP_URL = 'http://192.168.2.4:80'                                               # Change this to the app server url ...
+SERVER_PORT = 8080
+SERVER_URL = 'http://192.168.2.4:{}'.format(SERVER_PORT)                        # Change this to the API server url ...
+APP_PORT = 8000
+APP_URL = 'http://192.168.2.4:{}'.format(APP_PORT)                              # Change this to the app server url ...
 
 ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif'] 
 
@@ -149,4 +151,4 @@ if __name__=="__main__":
     is_valid_dir(app.config['UPLOAD_FOLDER'])
     app.secret_key = 'super secret key'
     app.config['SESSION_TYPE'] = 'filesystem'
-    app.run(host='0.0.0.0', port=80, debug=False)
+    app.run(host='0.0.0.0', port=APP_PORT, debug=False)
