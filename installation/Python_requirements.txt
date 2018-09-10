@@ -127,3 +127,6 @@ scipy
 sklearn 
 scikit-image
 scikit-video
+mne
+PyQt5
+PySide2
