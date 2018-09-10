@@ -73,7 +73,7 @@
               function httpGet(Url)
               {
                   var xmlHttp = new XMLHttpRequest();
-                  xmlHttp.open( "GET", Url, false ); // false for synchronous request
+                  xmlHttp.open( "GET", Url, true ); // false for synchronous request
                                                      // Async-status & prediction responses are synchronous.
                   xmlHttp.send( null );
                   return xmlHttp.responseText;
