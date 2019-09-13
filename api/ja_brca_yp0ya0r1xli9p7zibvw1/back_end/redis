@@ -4,6 +4,6 @@ if [ ! -d redis-stable/src ]; then
     tar xvzf redis-stable.tar.gz
     rm redis-stable.tar.gz
 fi
-cd /home/rahul/Jomiraki/redis-stable
+cd ./redis-stable
 make
-src/redis-server
+./src/redis-server
